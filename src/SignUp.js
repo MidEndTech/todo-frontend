@@ -1,4 +1,4 @@
-import logo from 'C:/Users/fadya/Desktop/to-do/src/image/p1.png';
+import logo from './image/p1.png';
 import Labels from './Components/Labels';
 import TextFieldAndLabel from './Components/TextFieldAndLabel';
 import Buttonss from './Components/Buttonss';

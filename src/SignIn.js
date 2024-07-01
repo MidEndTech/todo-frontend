@@ -1,4 +1,4 @@
-import logo from 'C:/Users/fadya/Desktop/to-do/src/image/p1.png';
+import logo from './image/p1.png';
 import Buttonss from './Components/Buttonss.js';
 import Labels from './Components/Labels.js';
 import TextFieldAndLabel from './Components/TextFieldAndLabel.js';
@@ -26,7 +26,7 @@ function SignIn() {
         placeholderText="enter your password" textFStyle={styles.PasswordTextFeild} isRequired={true}/>
         <Buttonss buttonStyle={styles.sginInButton} buttonName="Sign in" oc={handleSignIn} />
         <Labels text="Do not Have an Account? Sign Up" textStyle={styles.DontHaveAnAccountLabel}  />
-        <button onClick={handleSignIn}>nh</button>
+        {/* <button onClick={handleSignIn}>nh</button> */}
           </div></>
   );
 }
