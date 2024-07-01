@@ -2,8 +2,35 @@ import logo from './image/p1.png';
 import Labels from './Components/Labels';
 import TextFieldAndLabel from './Components/TextFieldAndLabel';
 import Buttonss from './Components/Buttonss';
+import { Link, Navigate } from 'react-router-dom';
+import axios from 'axios';
+import { useState } from 'react';
+// import { response } from 'r'
 
 function SignUp(){
+
+    const [name, setName] = useState('')
+    const [Email, setEmail] = useState('')
+    const [Password, setPassword] = useState('')
+    const SubmitSignInForm = async(e)=>{
+        e.preventDefault();{
+            const formData = new FormData();
+            formData.append('name',name )
+            formData.append('email',Email)
+            formData.append('password',Password)
+            await axios.post('https://todo.midend.tech/api/register',formData)
+            .then(({data})=>{console.log(data.message)}
+            // Navigate('/')
+            // }).catch(({error})=>{
+            //     if (error.response && error.response.status== 422){
+            //         console.log(error.response.data.errors)
+            //     }else{
+            //         console.log(error.response.data.message)
+            //     }
+            // }
+        )
+    }
+}
     return(
 <div>
     <div>
@@ -13,13 +40,20 @@ function SignUp(){
       <Labels textStyle={styles.greeting} text="Welcome"/>
       <Labels textStyle={styles.pageHeadline} text="Sign Up"/>
       <TextFieldAndLabel labelName="name" textFname="Name" typeOfInput="text" textFNameStyle={styles.NameLabel} 
-        placeholderText="enter your name" textFStyle={styles.NameTextFeild} isRequired={true}/>
+        placeholderText="enter your name" textFStyle={styles.NameTextFeild} isRequired={true} FieldValue={name}
+        onchange={(e)=>{setName(e.target.value)}}/>
       <TextFieldAndLabel labelName="email" textFname="Email" typeOfInput="email" textFNameStyle={styles.EmailLabel} 
-        placeholderText="enter your email" textFStyle={styles.EmailTextFeild} isRequired={true}/>
+        placeholderText="enter your email" textFStyle={styles.EmailTextFeild} isRequired={true} FieldValue={Email}
+        onchange={(e)=>{setEmail(e.target.value)}}/>
       <TextFieldAndLabel labelName="password" textFname="Password" typeOfInput="password" textFNameStyle={styles.PasswordLabel} 
-        placeholderText="enter your password" textFStyle={styles.PasswordTextFeild} isRequired={true}/>
-      <Labels text="Already Have an Account? Sign In" textStyle={styles.AlreadyHaveAnAccountLabel}/>
+        placeholderText="enter your password" textFStyle={styles.PasswordTextFeild} isRequired={true} FieldValue={Password}
+        onchange={(e)=>{setPassword(e.target.value)}}/>
+      <Labels text="Already Have an Account? " textStyle={styles.AlreadyHaveAnAccountLabel}/>
+      <Link to={'/SignIn'}>
+      <Labels text="Sign In" textStyle={styles.SignInLabel}/>
+      </Link>
       <Buttonss buttonStyle={styles.sginUpButton} buttonName="Sign up"/>
+      <button type='submit' onClick={SubmitSignInForm}>ccc</button>
     </div>
 </div>
     );
@@ -123,6 +157,14 @@ const styles = {
         left:"180px",
         top:"540px",
         fontFamily:"interSemiBold"
+    },
+    SignInLabel:{
+        position:"absolute",
+        fontSize:"22px",
+        left:"465px",
+        top:"540px",
+        fontFamily:"interSemiBold",
+        color:"#746FAF",
     },
     sginUpButton:{
         backgroundColor:"#746FAF",

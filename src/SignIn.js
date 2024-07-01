@@ -3,16 +3,16 @@ import Buttonss from './Components/Buttonss.js';
 import Labels from './Components/Labels.js';
 import TextFieldAndLabel from './Components/TextFieldAndLabel.js';
 import SignUp from './SignUp.js';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, BrowserRouter } from 'react-router-dom';
 
 
 function SignIn() {
-    const Navigate = useNavigate();
-    const handleSignIn = () => {
-        // Perform sign-in logic here
-        // If successful, navigate to the SignUp page
-        Navigate('/SignUp');
-      };
+    // const Navigate = useNavigate();
+    // const handleSignIn = () => {
+    //     // Perform sign-in logic here
+    //     // If successful, navigate to the SignUp page
+    //     Navigate('/SignUp');
+    //   };
   return (
   <><div >
           <img style={styles.image_on_the_lift} src={logo} alt="Logo" />
@@ -24,9 +24,11 @@ function SignIn() {
         placeholderText="enter your email" textFStyle={styles.EmailTextFeild} isRequired={true}/>
         <TextFieldAndLabel labelName="password" textFname="Password" typeOfInput="password" textFNameStyle={styles.PasswordLabel} 
         placeholderText="enter your password" textFStyle={styles.PasswordTextFeild} isRequired={true}/>
-        <Buttonss buttonStyle={styles.sginInButton} buttonName="Sign in" oc={handleSignIn} />
-        <Labels text="Do not Have an Account? Sign Up" textStyle={styles.DontHaveAnAccountLabel}  />
-        {/* <button onClick={handleSignIn}>nh</button> */}
+        <Buttonss buttonStyle={styles.sginInButton} buttonName="Sign in"/>
+        <Labels text="Do not Have an Account? " textStyle={styles.DontHaveAnAccountLabel}  />
+        <Link to="/SignUp">
+        <Labels text="Sign Up" textStyle={styles.SignInLabel}/>
+        </Link>
           </div></>
   );
 }
@@ -71,6 +73,14 @@ const styles = {
         left:"180px",
         top:"498px",
         fontFamily:"interSemiBold"
+    },
+    SignInLabel:{
+        position:"absolute",
+        fontSize:"22px",
+        left:"452px",
+        top:"498px",
+        fontFamily:"interSemiBold",
+        color:"#746FAF",
     },
     sginInButton:{
         backgroundColor:"#746FAF",
