@@ -27,7 +27,7 @@ function SignUp(){
             const response = await axios.post('https://todo.midend.tech/api/register', formData);
             console.log(response.data.message);
             console.log("data is sent");
-            // navigate('./AllTasksPage');
+            navigate('./AllTasksPage');
         } catch (error) {
             if (error.response && error.response.status === 422) {
                 console.log(error.response.data.errors);
@@ -45,6 +45,7 @@ function SignUp(){
     <div style={styles.rightSide}>
       <Labels textStyle={styles.greeting} text="Welcome"/>
       <Labels textStyle={styles.pageHeadline} text="Sign Up"/>
+      <form>
       <TextFieldAndLabel labelName="name" textFname="Name" typeOfInput="text" textFNameStyle={styles.NameLabel} 
         placeholderText="enter your name" textFStyle={styles.NameTextFeild} isRequired={true} FieldValue={Name}
         onchange={(e)=>{setName(e.target.value)}}/>
@@ -60,7 +61,7 @@ function SignUp(){
       </Link>
       <Buttonss buttonStyle={styles.sginUpButton} oc={SubmitSignUpForm} buttonName="Sign up"/>
       <button type='submit' onClick={SubmitSignUpForm}>ccc</button>
-      
+      </form>
     </div>
 </div>
     );

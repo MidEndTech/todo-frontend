@@ -38,11 +38,13 @@ function SignIn() {
       <div style={styles.rightSide}>
         <Labels textStyle={styles.greeting} text="Welcome Back"/>
         <Labels textStyle={styles.pageHeadline} text="Sign in"/>
+        <form>
         <TextFieldAndLabel labelName="email" textFname="Email" typeOfInput="email" textFNameStyle={styles.EmailLabel} 
         placeholderText="enter your email" textFStyle={styles.EmailTextFeild} isRequired={true} FieldValue={Email} onchange={(e)=>{setEmail(e.target.value)}}/>
         <TextFieldAndLabel labelName="password" textFname="Password" typeOfInput="password" textFNameStyle={styles.PasswordLabel} 
         placeholderText="enter your password" textFStyle={styles.PasswordTextFeild} isRequired={true} FieldValue={Password} onchange={(e)=>{setPassword(e.target.value)}}/>
         <Buttonss buttonStyle={styles.sginInButton} buttonName="Sign in" oc={SubmitSignInForm}/>
+        </form>
         <Labels text="Do not Have an Account? " textStyle={styles.DontHaveAnAccountLabel}  />
         <Link to="/SignUp">
         <Labels text="Sign Up" textStyle={styles.SignInLabel}/>
