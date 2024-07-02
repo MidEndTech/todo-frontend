@@ -14,6 +14,7 @@ function App() {
     <div>
     <Routes>
       {/* <Route path='/' element={<AllTasksPage/>}/> */}
+      <Route path='/' element={<SignIn/>}/>
       <Route path='/SignIn' element={<SignIn/>}/>
       <Route path='/SignUp' element={<SignUp/>}/>
       <Route path='/SignUp/AllTasksPage' element={<AllTasksPage/>}/>

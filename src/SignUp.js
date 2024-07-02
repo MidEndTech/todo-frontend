@@ -27,7 +27,7 @@ function SignUp(){
             const response = await axios.post('https://todo.midend.tech/api/register', formData);
             console.log(response.data.message);
             console.log("data is sent");
-            navigate('./AllTasksPage');
+            // navigate('./AllTasksPage');
         } catch (error) {
             if (error.response && error.response.status === 422) {
                 console.log(error.response.data.errors);
