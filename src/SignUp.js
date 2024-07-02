@@ -46,13 +46,13 @@ function SignUp(){
       <Labels textStyle={styles.greeting} text="Welcome"/>
       <Labels textStyle={styles.pageHeadline} text="Sign Up"/>
       <form>
-      <TextFieldAndLabel labelName="name" textFname="Name" typeOfInput="text" textFNameStyle={styles.NameLabel} 
+      <TextFieldAndLabel labelName="name" textFname="name" typeOfInput="text" textFNameStyle={styles.NameLabel} 
         placeholderText="enter your name" textFStyle={styles.NameTextFeild} isRequired={true} FieldValue={Name}
         onchange={(e)=>{setName(e.target.value)}}/>
-      <TextFieldAndLabel labelName="email" textFname="Email" typeOfInput="email" textFNameStyle={styles.EmailLabel} 
+      <TextFieldAndLabel labelName="email" textFname="email" typeOfInput="email" textFNameStyle={styles.EmailLabel} 
         placeholderText="enter your email" textFStyle={styles.EmailTextFeild} isRequired={true} FieldValue={Email}
         onchange={(e)=>{setEmail(e.target.value)}}/>
-      <TextFieldAndLabel labelName="password" textFname="Password" typeOfInput="password" textFNameStyle={styles.PasswordLabel} 
+      <TextFieldAndLabel labelName="password" textFname="password" typeOfInput="password" textFNameStyle={styles.PasswordLabel} 
         placeholderText="enter your password" textFStyle={styles.PasswordTextFeild} isRequired={true} FieldValue={Password}
         onchange={(e)=>{setPassword(e.target.value)}}/>
       <Labels text="Already Have an Account? " textStyle={styles.AlreadyHaveAnAccountLabel}/>
