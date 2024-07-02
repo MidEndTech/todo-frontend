@@ -4,15 +4,32 @@ import Labels from './Components/Labels.js';
 import TextFieldAndLabel from './Components/TextFieldAndLabel.js';
 import SignUp from './SignUp.js';
 import { Link, useNavigate, BrowserRouter } from 'react-router-dom';
+import axios from 'axios';
+import { useState } from 'react';
 
 
 function SignIn() {
-    // const Navigate = useNavigate();
-    // const handleSignIn = () => {
-    //     // Perform sign-in logic here
-    //     // If successful, navigate to the SignUp page
-    //     Navigate('/SignUp');
-    //   };
+    const [Email, setEmail] = useState('')
+    const [Password, setPassword] = useState('')
+    const SubmitSignUpForm = async (e) => {
+        e.preventDefault();
+        try {
+            const formData = new FormData();
+            formData.append('email', Email);
+            formData.append('password', Password);
+            const response = await axios.post('https://todo.midend.tech/api/login', formData);
+            console.log(response.data.message);
+            console.log("sent");
+            // You can navigate to another page here if needed
+            // Example: navigate('/SignIn');
+        } catch (error) {
+            if (error.response && error.response.status === 422) {
+                console.log(error.response.data.errors);
+            } else {
+                console.log(error.response.data.message);
+            }
+        }
+    };
   return (
   <><div >
           <img style={styles.image_on_the_lift} src={logo} alt="Logo" />
@@ -21,10 +38,10 @@ function SignIn() {
         <Labels textStyle={styles.greeting} text="Welcome Back"/>
         <Labels textStyle={styles.pageHeadline} text="Sign in"/>
         <TextFieldAndLabel labelName="email" textFname="Email" typeOfInput="email" textFNameStyle={styles.EmailLabel} 
-        placeholderText="enter your email" textFStyle={styles.EmailTextFeild} isRequired={true}/>
+        placeholderText="enter your email" textFStyle={styles.EmailTextFeild} isRequired={true} FieldValue={Email} onchange={(e)=>{setEmail(e.target.value)}}/>
         <TextFieldAndLabel labelName="password" textFname="Password" typeOfInput="password" textFNameStyle={styles.PasswordLabel} 
-        placeholderText="enter your password" textFStyle={styles.PasswordTextFeild} isRequired={true}/>
-        <Buttonss buttonStyle={styles.sginInButton} buttonName="Sign in"/>
+        placeholderText="enter your password" textFStyle={styles.PasswordTextFeild} isRequired={true} FieldValue={Password} onchange={(e)=>{setPassword(e.target.value)}}/>
+        <Buttonss buttonStyle={styles.sginInButton} buttonName="Sign in" oc={SubmitSignUpForm}/>
         <Labels text="Do not Have an Account? " textStyle={styles.DontHaveAnAccountLabel}  />
         <Link to="/SignUp">
         <Labels text="Sign Up" textStyle={styles.SignInLabel}/>

@@ -1,10 +1,12 @@
 import Buttonss from "./Buttonss";
+import Labels from "./Labels";
 
 function LeftSide(){
     return(
 <div style={styles.menuStyle}>
     <div>
-        <Buttonss/>
+        {/* <Buttonss/> */}
+        <Labels textStyle={styles.nameLabel} text={"user name here"}/>
     </div>
 </div>
     );
@@ -19,5 +21,10 @@ const styles = {
         backgroundColor:"#EEE7FD",
         height: "100%",
 
+    },
+    nameLabel:{
+        position: "absolute",
+        left: "100px",
+        top: "10px",
     },
 }

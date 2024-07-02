@@ -9,28 +9,30 @@ import { useState } from 'react';
 
 function SignUp(){
 
-    const [name, setName] = useState('')
+    const [Name, setName] = useState('')
     const [Email, setEmail] = useState('')
     const [Password, setPassword] = useState('')
-    const SubmitSignInForm = async(e)=>{
-        e.preventDefault();{
+    const SubmitSignUpForm = async (e) => {
+        e.preventDefault();
+        try {
             const formData = new FormData();
-            formData.append('name',name )
-            formData.append('email',Email)
-            formData.append('password',Password)
-            await axios.post('https://todo.midend.tech/api/register',formData)
-            .then(({data})=>{console.log(data.message)}
-            // Navigate('/')
-            // }).catch(({error})=>{
-            //     if (error.response && error.response.status== 422){
-            //         console.log(error.response.data.errors)
-            //     }else{
-            //         console.log(error.response.data.message)
-            //     }
-            // }
-        )
-    }
-}
+            formData.append('name', Name);
+            formData.append('email', Email);
+            formData.append('password', Password);
+    
+            const response = await axios.post('https://todo.midend.tech/api/register', formData);
+            console.log(response.data.message);
+            // You can navigate to another page here if needed
+            // Example: navigate('/SignIn');
+        } catch (error) {
+            if (error.response && error.response.status === 422) {
+                console.log(error.response.data.errors);
+            } else {
+                console.log(error.response.data.message);
+            }
+        }
+    };
+    
     return(
 <div>
     <div>
@@ -40,7 +42,7 @@ function SignUp(){
       <Labels textStyle={styles.greeting} text="Welcome"/>
       <Labels textStyle={styles.pageHeadline} text="Sign Up"/>
       <TextFieldAndLabel labelName="name" textFname="Name" typeOfInput="text" textFNameStyle={styles.NameLabel} 
-        placeholderText="enter your name" textFStyle={styles.NameTextFeild} isRequired={true} FieldValue={name}
+        placeholderText="enter your name" textFStyle={styles.NameTextFeild} isRequired={true} FieldValue={Name}
         onchange={(e)=>{setName(e.target.value)}}/>
       <TextFieldAndLabel labelName="email" textFname="Email" typeOfInput="email" textFNameStyle={styles.EmailLabel} 
         placeholderText="enter your email" textFStyle={styles.EmailTextFeild} isRequired={true} FieldValue={Email}
@@ -52,8 +54,8 @@ function SignUp(){
       <Link to={'/SignIn'}>
       <Labels text="Sign In" textStyle={styles.SignInLabel}/>
       </Link>
-      <Buttonss buttonStyle={styles.sginUpButton} buttonName="Sign up"/>
-      <button type='submit' onClick={SubmitSignInForm}>ccc</button>
+      <Buttonss buttonStyle={styles.sginUpButton} oc={SubmitSignUpForm} buttonName="Sign up"/>
+      <button type='submit' onClick={SubmitSignUpForm}>ccc</button>
     </div>
 </div>
     );

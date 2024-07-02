@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import SignUp from './SignUp';
 import SignIn from './SignIn';
+import AllTasksPage from './AllTasksPage';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, BrowserRouter as Router } from 'react-router-dom';
 
