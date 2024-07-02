@@ -9,9 +9,11 @@ import { useState } from 'react';
 
 
 function SignIn() {
+    const navigate = useNavigate();
     const [Email, setEmail] = useState('')
     const [Password, setPassword] = useState('')
-    const SubmitSignUpForm = async (e) => {
+
+    const SubmitSignInForm = async (e) => {
         e.preventDefault();
         try {
             const formData = new FormData();
@@ -20,8 +22,7 @@ function SignIn() {
             const response = await axios.post('https://todo.midend.tech/api/login', formData);
             console.log(response.data.message);
             console.log("sent");
-            // You can navigate to another page here if needed
-            // Example: navigate('/SignIn');
+            navigate('./AllTasksPage');
         } catch (error) {
             if (error.response && error.response.status === 422) {
                 console.log(error.response.data.errors);
@@ -41,7 +42,7 @@ function SignIn() {
         placeholderText="enter your email" textFStyle={styles.EmailTextFeild} isRequired={true} FieldValue={Email} onchange={(e)=>{setEmail(e.target.value)}}/>
         <TextFieldAndLabel labelName="password" textFname="Password" typeOfInput="password" textFNameStyle={styles.PasswordLabel} 
         placeholderText="enter your password" textFStyle={styles.PasswordTextFeild} isRequired={true} FieldValue={Password} onchange={(e)=>{setPassword(e.target.value)}}/>
-        <Buttonss buttonStyle={styles.sginInButton} buttonName="Sign in" oc={SubmitSignUpForm}/>
+        <Buttonss buttonStyle={styles.sginInButton} buttonName="Sign in" oc={SubmitSignInForm}/>
         <Labels text="Do not Have an Account? " textStyle={styles.DontHaveAnAccountLabel}  />
         <Link to="/SignUp">
         <Labels text="Sign Up" textStyle={styles.SignInLabel}/>

@@ -4,14 +4,18 @@ import TextFieldAndLabel from './Components/TextFieldAndLabel';
 import Buttonss from './Components/Buttonss';
 import { Link, Navigate } from 'react-router-dom';
 import axios from 'axios';
-import { useState } from 'react';
-// import { response } from 'r'
+import { useState} from 'react';
+import { useNavigate } from 'react-router-dom';
+
+
 
 function SignUp(){
+    const navigate = useNavigate();
 
     const [Name, setName] = useState('')
     const [Email, setEmail] = useState('')
     const [Password, setPassword] = useState('')
+
     const SubmitSignUpForm = async (e) => {
         e.preventDefault();
         try {
@@ -22,8 +26,8 @@ function SignUp(){
     
             const response = await axios.post('https://todo.midend.tech/api/register', formData);
             console.log(response.data.message);
-            // You can navigate to another page here if needed
-            // Example: navigate('/SignIn');
+            console.log("data is sent");
+            navigate('./AllTasksPage');
         } catch (error) {
             if (error.response && error.response.status === 422) {
                 console.log(error.response.data.errors);
@@ -56,6 +60,7 @@ function SignUp(){
       </Link>
       <Buttonss buttonStyle={styles.sginUpButton} oc={SubmitSignUpForm} buttonName="Sign up"/>
       <button type='submit' onClick={SubmitSignUpForm}>ccc</button>
+      
     </div>
 </div>
     );
