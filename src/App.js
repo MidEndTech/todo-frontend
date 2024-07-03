@@ -6,11 +6,7 @@ import SignUp from './SignUp';
 import { BrowserRouter,Route,Router, Routes } from 'react-router-dom';
 function App() {
   return (
-    // <div>
-    //   <SignIn/>
-    //   {/* <SignUp/> */}
-    //   {/* <AllTasksPage/> */}
-    // </div>
+  
     <div>
     <Routes>
       {/* <Route path='/' element={<AllTasksPage/>}/> */}
@@ -19,6 +15,7 @@ function App() {
       <Route path='/SignUp' element={<SignUp/>}/>
       <Route path='/SignUp/AllTasksPage' element={<AllTasksPage/>}/>
       <Route path='/SignIn/AllTasksPage' element={<AllTasksPage/>}/>
+      <Route path='/AllTasksPage' element={<AllTasksPage/>}/>
     </Routes>
     </div>
   );

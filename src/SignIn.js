@@ -6,12 +6,14 @@ import SignUp from './SignUp.js';
 import { Link, useNavigate, BrowserRouter } from 'react-router-dom';
 import axios from 'axios';
 import { useState } from 'react';
+import { useRef } from 'react';
 
 
 function SignIn() {
     const navigate = useNavigate();
     const [Email, setEmail] = useState('')
     const [Password, setPassword] = useState('')
+    const data = useRef();
 
     const SubmitSignInForm = async (e) => {
         e.preventDefault();
@@ -20,7 +22,12 @@ function SignIn() {
             formData.append('email', Email);
             formData.append('password', Password);
             const response = await axios.post('https://todo.midend.tech/api/login', formData);
-            console.log(response.data.message);
+            const Token = response.data.token
+            console.log(response.data.token);
+            localStorage.setItem('authToken',Token);
+
+            // console.log(data.current.value,"Token");
+            // localStorage.setItem("Token",data.current.value)
             console.log("sent");
             navigate('./AllTasksPage');
         } catch (error) {

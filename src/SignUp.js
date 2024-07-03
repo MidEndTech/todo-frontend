@@ -15,6 +15,7 @@ function SignUp(){
     const [Name, setName] = useState('')
     const [Email, setEmail] = useState('')
     const [Password, setPassword] = useState('')
+    const [ConformPassword, setconformPassword] = useState('')
 
     const SubmitSignUpForm = async (e) => {
         e.preventDefault();
@@ -23,6 +24,7 @@ function SignUp(){
             formData.append('name', Name);
             formData.append('email', Email);
             formData.append('password', Password);
+            formData.append('password_confirmation', ConformPassword);
     
             const response = await axios.post('https://todo.midend.tech/api/register', formData);
             console.log(response.data.message);
@@ -43,7 +45,6 @@ function SignUp(){
         <img style={styles.image_on_the_lift} src={logo} alt="Logo" />
     </div>
     <div style={styles.rightSide}>
-      <Labels textStyle={styles.greeting} text="Welcome"/>
       <Labels textStyle={styles.pageHeadline} text="Sign Up"/>
       <form>
       <TextFieldAndLabel labelName="name" textFname="name" typeOfInput="text" textFNameStyle={styles.NameLabel} 
@@ -55,12 +56,14 @@ function SignUp(){
       <TextFieldAndLabel labelName="password" textFname="password" typeOfInput="password" textFNameStyle={styles.PasswordLabel} 
         placeholderText="enter your password" textFStyle={styles.PasswordTextFeild} isRequired={true} FieldValue={Password}
         onchange={(e)=>{setPassword(e.target.value)}}/>
+        <TextFieldAndLabel labelName="password_confirmation" textFname="password conformation" typeOfInput="password" textFNameStyle={styles.PasswordConLabel} 
+        placeholderText="enter your password again" textFStyle={styles.PasswordConTextFeild} isRequired={true} FieldValue={ConformPassword}
+        onchange={(e)=>{setconformPassword(e.target.value)}}/>
       <Labels text="Already Have an Account? " textStyle={styles.AlreadyHaveAnAccountLabel}/>
       <Link to={'/SignIn'}>
       <Labels text="Sign In" textStyle={styles.SignInLabel}/>
       </Link>
       <Buttonss buttonStyle={styles.sginUpButton} oc={SubmitSignUpForm} buttonName="Sign up"/>
-      <button type='submit' onClick={SubmitSignUpForm}>ccc</button>
       </form>
     </div>
 </div>
@@ -85,37 +88,30 @@ const styles = {
         backgroundColor: "#EFE7FE",
 
     },
-    greeting:{
-        position: "absolute",
-        fontSize: "55px" ,
-        fontFamily:"interSemiBold",
-        left:"77px",
-        top:"4px",
-    },
     pageHeadline:{
         position: "absolute",
         fontSize: "40px" ,
         left:"284px",
-        top:"125px",
+        top:"60px",
         fontFamily:"interSemiBold"
     },
     NameLabel:{
         fontSize:"23px",
         position: "absolute",
-        top: "244px",
+        top: "175px",
         left:"177px",
         fontFamily:"interSemiBold",
     },
     EmailLabel:{
         fontSize:"21px",
         position: "absolute",
-        top: "352px",
+        top: "281px",
         left:"179px",
         fontFamily:"interSemiBold",
     },
     NameTextFeild:{
         position: "absolute",
-        top: "280px",
+        top: "205px",
         left:"175px",
         width:"372px",
         height:"55px",
@@ -128,7 +124,7 @@ const styles = {
     },
     EmailTextFeild:{
         position: "absolute",
-        top: "382px",
+        top: "307px",
         left:"175px",
         width:"372px",
         height:"53px",
@@ -142,13 +138,13 @@ const styles = {
     PasswordLabel:{
         fontSize:"21px",
         position: "absolute",
-        top: "450px",
+        top: "382px",
         left:"179px",
         fontFamily:"interSemiBold",
     },
     PasswordTextFeild:{
         position: "absolute",
-        top: "480px",
+        top: "410px",
         left:"175px",
         width:"372px",
         height:"53px",
@@ -163,14 +159,14 @@ const styles = {
         position:"absolute",
         fontSize:"22px",
         left:"180px",
-        top:"540px",
+        top:"565px",
         fontFamily:"interSemiBold"
     },
     SignInLabel:{
         position:"absolute",
         fontSize:"22px",
         left:"465px",
-        top:"540px",
+        top:"565px",
         fontFamily:"interSemiBold",
         color:"#746FAF",
     },
@@ -184,6 +180,26 @@ const styles = {
         border:"none",
         position:"absolute",
         left:"275px",
-        top:"610px",
+        top:"635px",
+    },
+    PasswordConLabel:{
+        fontSize:"21px",
+        position: "absolute",
+        top: "484px",
+        left:"179px",
+        fontFamily:"interSemiBold",
+    },
+    PasswordConTextFeild:{
+        position: "absolute",
+        top: "510px",
+        left:"175px",
+        width:"372px",
+        height:"53px",
+        borderRadius:"10px",
+        border: '1px solid',
+        borderColor: '#B4B3B3',
+        paddingLeft:"10px",
+        fontSize: "19px",
+        fontFamily:"interSemiBold",
     },
 }
