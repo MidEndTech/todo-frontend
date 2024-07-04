@@ -4,9 +4,10 @@ import AllTasksPage from './AllTasksPage';
 import'./App.css'; 
 import SignUp from './SignUp';
 import { BrowserRouter,Route,Router, Routes } from 'react-router-dom';
+import Providers from './Context/Providers';
 function App() {
   return (
-  
+  <Providers>
     <div>
     <Routes>
       {/* <Route path='/' element={<AllTasksPage/>}/> */}
@@ -18,6 +19,7 @@ function App() {
       <Route path='/AllTasksPage' element={<AllTasksPage/>}/>
     </Routes>
     </div>
+    </Providers>
   );
 }
 

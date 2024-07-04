@@ -1,14 +1,19 @@
+import { useState } from "react";
 import LeftSide from "./Components/LeftSide";
-import RightSide from "./Components/RightSide";
+import AddNewTask from "./Components/AddNewTask";
+
 function AllTasksPage(){
-    
+  
+
     return(
+       
 <div>
 <LeftSide/>
-<RightSide/>
-
+<AddNewTask/>
 
 </div>
+
+
     );
 }
 export default AllTasksPage;

@@ -1,13 +1,24 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Buttonss from "./Buttonss";
 import Labels from "./Labels";
 import axios from 'axios';
-
+import { useListId } from "../Context/ListIdContext";
 
 function LeftSide() {
+    const {setId} = useListId(); 
     const [createToDoLists, setToDoLists] = useState('');
     const [showTextField, setShowTextField] = useState(false);
-    const [CreatedList, setCreatedList] = useState(null);
+    const [CreatedList, setCreatedList] = useState([]);
+
+    console.log(CreatedList);
+  
+
+    useEffect(() => {
+        fetchUserAllTask()
+    }, []);
+
+
+
     const creatAnewToDoList = async (e) => {
         e.preventDefault();
         try {
@@ -20,10 +31,10 @@ function LeftSide() {
             const formData = new FormData();
             formData.append('name', createToDoLists);
             const response = await axios.post('https://todo.midend.tech/api/todolists', formData, config);
-            setCreatedList(response.data.name)
-            console.log("data is sent");
-            console.log("print mmeeeeeeee",response.data);
+             console.log("data is sent",CreatedList);
+             await fetchUserAllTask();
         } catch (error) {
+            console.error('API Error', error.response);
             if (error.response && error.response.status === 422) {
                 console.log(error.response.data.errors);
             } else {
@@ -33,45 +44,52 @@ function LeftSide() {
     };
 
     //get method
-// const fetchUserAllTask = async (e) => {
-//     try {
-//         const token = localStorage.getItem('authToken');
-//         const config = {
-//             headers: {
-//                 Authorization: `Bearer ${token}`
-//             }
-//         }
-//         const Data = await axios.get('https://todo.midend.tech/api/todolists', config);
-//         //setCreatedList(Data.data)
-//         console.log(Data.data);
-//         console.log("helllllllllllo");
-//     } catch (error) {
-//         console.log(error);
-//     }
+    const fetchUserAllTask = async (e) => {
+        try {
+            const token = localStorage.getItem('authToken');
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+            const reapons = await axios.get(`https://todo.midend.tech/api/todolists/`, config);
+            if (Array.isArray(reapons.data.data)) {
+                setCreatedList(reapons.data.data);
+            } else {
+                const list = [reapons.data.data];
+                setCreatedList(list);
+            }
+        } catch (error) {
+            console.log(error);
+        }
 
-// }
+    }
 
 
     const toggleTextField = () => {
-        setShowTextField(!showTextField); // Toggle the state
+        setShowTextField(!showTextField); 
     };
 
 
     return (
         <div style={styles.menuStyle}>
             <div>
+                <div style={styles.NewList} > 
+                {CreatedList.map(task => (
+                    <div key={task.id} style={styles.ListsName} onClick={() => setId(task.id)}><p style={{  cursor: "pointer",}}>{task.name}</p> 
+            </div>
+            ))}
+                </div>
                 <Labels textStyle={styles.nameLabel} text={"+ Add a New List"} oc={toggleTextField} />
                 <div value={createToDoLists} hidden={!showTextField}>
-                {/* value={createToDoLists} */}
-                <input style={styles.nameTextfeild} type="text" className="name" onChange={(e)=>{setToDoLists(e.target.value)}} placeholder="Enter List Name" hidden={!showTextField} />
-                <button style={styles.addNewListButton} onClick={creatAnewToDoList} >Add</button>
-                {/* <button onClick={fetchUserAllTask} > save1</button> */}
+                    <input style={styles.nameTextfeild} maxLength="15" type="text" className="name" onChange={(e) => { setToDoLists(e.target.value) }} placeholder="Enter List Name" hidden={!showTextField} />
+                    <button style={styles.addNewListButton} onClick={creatAnewToDoList} >Add</button>
+                    
                 </div>
-                <p style={{position:"absolute", top:"200px"}}>{CreatedList}</p>
             </div>
         </div>
     );
-    // {(e)=>{setPassword(e.target.value)}}
+
 }
 export default LeftSide;
 
@@ -86,36 +104,55 @@ const styles = {
     },
     nameLabel: {
         position: "absolute",
-        fontSize:"20px",
+        fontSize: "20px",
         left: "10px",
         top: "550px",
         cursor: "pointer",
-        color:"#746FAF",
+        color: "#746FAF",
     },
-    nameTextfeild:{
+    nameTextfeild: {
         border: '1px solid',
         position: "absolute",
-        borderRadius:"6px",
+        borderRadius: "6px",
         borderColor: '#B4B3B3',
         top: "610px",
         left: "20px",
         height: "30px",
         width: "200px",
-        borderRadios:"10px",
+        borderRadios: "10px",
     },
-    addNewListButton:{
+    addNewListButton: {
         position: "absolute",
-        borderRadius:"9px",
+        borderRadius: "9px",
         top: "610px",
         left: "230px",
         height: "34px",
         width: "65px",
-        backgroundColor:"#746FAF",
-        color:"white",
-        border:"none",
-        fontSize:"18px",
+        backgroundColor: "#746FAF",
+        color: "white",
+        border: "none",
+        fontSize: "18px",
 
     },
+    dicreptionTask: {
+        position: "absolute",
+        fontSize: "22px",
+        left: "130px",
+    },
+    NewList:{
+    position: "relative",
+    fontSize:"30px",
+    fontFamily:"interSemiBold",
+    maxWidth:"500px",
+    maxHeight: "500px",
+    left:"15px",
+    top:"55px",
+    borderRadius:"2px",
+    overflowX: "hidden",
+},
+    ListsName:{
+        width:"360px",
+    }
 }
 
 
