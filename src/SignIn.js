@@ -25,9 +25,6 @@ function SignIn() {
             const Token = response.data.token
             console.log(response.data.token);
             localStorage.setItem('authToken',Token);
-
-            // console.log(data.current.value,"Token");
-            // localStorage.setItem("Token",data.current.value)
             console.log("sent");
             navigate('./AllTasksPage');
         } catch (error) {

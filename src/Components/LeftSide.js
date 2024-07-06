@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import Buttonss from "./Buttonss";
 import Labels from "./Labels";
 import axios from 'axios';
 import { useListId } from "../Context/ListIdContext";
+import LogOut from "./LogOut";
 
 function LeftSide() {
     const {setId} = useListId(); 
@@ -73,6 +73,7 @@ function LeftSide() {
 
     return (
         <div style={styles.menuStyle}>
+            <LogOut/>
             <div>
                 <div style={styles.NewList} > 
                 {CreatedList.map(task => (
