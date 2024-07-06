@@ -3,6 +3,7 @@ import axios from "axios";
 import { useListId } from "../Context/ListIdContext";
 import starfilled from "./../image/starFilled.png";
 import star from "./../image/star.png";
+import deleteImg from "./../image/delete.png";
 
 
 
@@ -19,6 +20,7 @@ function ToDoCard({ item }) {
     setIsImportant(item.important);
     setTitle(item.title);
     setDescription(item.description);
+
   }, [item]);
 
   const handleCheckboxChange = async () => {
@@ -60,6 +62,28 @@ function ToDoCard({ item }) {
     }
   };
 
+   ////////////////////Begin Delete Task DEL////////////////////////////
+   const DeleteTask = async (e) => {
+    e.preventDefault();
+    try {
+        const token = localStorage.getItem('authToken');
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+        const response = await axios.delete(`https://todo.midend.tech/api/todolists/${ListId}/tasks/${item.id}`, config);
+        console.log("i am delet");
+    } catch (error) {
+        if (error.response && error.response.status === 422) {
+            console.log(error.response.data.errors);
+        } else {
+            console.log(error.response.data.message);
+        }
+    }
+};
+////////////////////End Delete Task DEL////////////////////////////
+
   const styles = {
     cardStyle: {
       backgroundColor: "#EEE7FD",
@@ -67,7 +91,8 @@ function ToDoCard({ item }) {
       marginLeft: "20px",
       borderRadius: "6px",
       width: "800px",
-      height: "120px",
+      height: "100px",
+      boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
     },
     titleTask: {
       position: "absolute",
@@ -92,27 +117,30 @@ function ToDoCard({ item }) {
     },
     star:{
       position: 'absolute',
-      marginTop: '40px',
+      marginTop: '24px',
       height: '25px',
       width: '25px',
       left:"670px",
-    }
+    },
+    deleteIm:{
+      position: 'absolute',
+      marginTop: '24px',
+      height: '25px',
+      width: '25px',
+      left:"710px",
+      cursor: "pointer"
+    },
   };
 
   return (
     <div style={styles.cardStyle}>
-      <input
-        type="checkbox"
-        checked={isChecked}
-        onChange={handleCheckboxChange}
-        style={styles.checkStyle}
-      />
+      <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange} style={styles.checkStyle}/>
       <p style={styles.titleTask}>{title}</p>
       <br />
       <br />
       <p style={styles.descriptionTask}>{description}</p>
       <img style={styles.star} src={isImportant ? starfilled : star} onClick={handlestar} />
-      
+      <img src={deleteImg} style={styles.deleteIm} onClick={DeleteTask}/>
     </div>
   );
 }

@@ -11,25 +11,15 @@ function AddNewTask() {
     const [AddTask, setAddTask] = useState('');
     const [AddDes, setAddDes] = useState('');
     const { ListId } = useListId();
-
-    
-
-    console.log("lidt iddddddddd", ListId);
-    console.log("i am add task", AddTask);
-
     const [tasks, setTasks] = useState([]);
-    console.log("heeeeeeeeee",tasks)
-
-    const toggleTextField = () => {
-        setShowTextField(!showTextField); 
-    };
-
+    const toggleTextField = () => { setShowTextField(!showTextField); };
 
 
     useEffect(() => {
         fetchUserAllTask()
     }, [ListId]);
-    ////////////////////Add task API POST//////////////////////////////////
+
+    ////////////////////Begin Add task API POST//////////////////////////////////
     const Add = async (e) => {
         e.preventDefault();
         try {
@@ -41,11 +31,9 @@ function AddNewTask() {
             }
             const formData = new FormData();
             formData.append('title', AddTask);
-            formData.append('description',AddDes);
+            formData.append('description', AddDes);
             const response = await axios.post(`https://todo.midend.tech/api/todolists/${ListId}/tasks`, formData, config);
-            console.log("i am the importent", response.data.name);
             fetchUserAllTask();
-            console.log("data is sent");
         } catch (error) {
             if (error.response && error.response.status === 422) {
                 console.log(error.response.data.errors);
@@ -54,9 +42,9 @@ function AddNewTask() {
             }
         }
     };
-    ////////////////////Add task API POST//////////////////////////////////
+    ////////////////////End Add task API POST//////////////////////////////////
 
-    ////////////////////show the Added Task GET////////////////////////////
+    ////////////////////Begin show  added Task GET////////////////////////////
     const fetchUserAllTask = async (e) => {
         try {
             const token = localStorage.getItem('authToken');
@@ -66,20 +54,15 @@ function AddNewTask() {
                 }
             }
             const reapons = await axios.get(`https://todo.midend.tech/api/todolists/${ListId}`, config);
-            // console.log("faduaaaaa", reapons.data.data.tasks[0].title);
             setTasks(reapons.data.data.tasks)
-            console.log("i am list id", ListId)
-            console.log("i am list iddddddddddddddddddd", reapons.data.data.tasks[0].title)
             console.log(reapons.data);
-            //setAddTask(reapons.data.data.tasks[0].title)
-
-
         } catch (error) {
             console.log(error.message);
         }
-
     }
-    ////////////////////show the Added Task GET////////////////////////////
+    ////////////////////End show the Added Task GET////////////////////////////
+
+
     return (
         <div>
             <Labels textStyle={styles.AddNewTaskLabel} text={"+ Add a New Task"} oc={toggleTextField} />
@@ -88,20 +71,11 @@ function AddNewTask() {
                 <input style={styles.TaskdescriptionTextfeild} onChange={(e) => { setAddDes(e.target.value) }} type="text" className="description" placeholder="Enter your Task description" hidden={!showTextField} maxLength="25" />
                 <button style={styles.addNewTaskButton} onClick={Add} >Add</button>
             </div>
-
-
             <div style={styles.RightSideStyle}>
-            
-       
-          
-           {tasks.map(item => (
-        <div key={item.id}>
-          {/* {item.title} */}
-          <ToDoCard  item={item} />
-          </div>
-
-        ))}
-
+                {tasks.map(item => (<div key={item.id}>
+                    <ToDoCard item={item} />
+                </div>
+                ))}
             </div>
         </div>
     );
@@ -156,9 +130,9 @@ const styles = {
         position: "relative",
         backgroundColor: "white",
         maxWidth: "880px",
-        maxHeight: "500px",
+        maxHeight: "470px",
         left: "450px",
-        top: "30px",
+        top: "80px",
         borderRadius: "6px",
         overflowX: "auto",
     },
