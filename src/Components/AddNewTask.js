@@ -40,7 +40,7 @@ function AddNewTask() {
             if (error.response && error.response.status === 422) {
                 console.log(error.response.data.errors);
             } else {
-                alert(error.response.data.message);
+                console.log(error.response.data.message);
             }
         }
     };
@@ -60,7 +60,7 @@ function AddNewTask() {
             console.log(reapons.data);
         } catch (error) {
             console.log(error.message);
-            alert("create a list first ");
+         
         }
     }
     ////////////////////End show the Added Task GET////////////////////////////
