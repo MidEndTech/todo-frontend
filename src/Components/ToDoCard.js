@@ -33,11 +33,11 @@ function ToDoCard({ item }) {
     await updateTask({ completed: newChecked });
   };
 
-  const handlestar = async () => {
-    const newChecked = !isChecked;
-    setIsImportant(newChecked);
-    await updateTask({ important: newChecked });
-  };
+  // const handlestar = async () => {
+  //   const newChecked = !isChecked;
+  //   setIsImportant(newChecked);
+  //   await updateTask({ important: newChecked });
+  // };
 
   const handleCard = async ()=>{
     const newTitle = title;
@@ -218,7 +218,7 @@ function ToDoCard({ item }) {
       <br />
       <br />
       <p style={styles.descriptionTask}>{description}</p>
-      <img style={styles.star} src={isImportant ? starfilled : star} onClick={handlestar} />
+      {/* <img style={styles.star} src={isImportant ? starfilled : star} onClick={handlestar} /> */}
       <img src={deleteImg} style={styles.deleteIm} onClick={DeleteTask}/>
       <img src={editImg} style={styles.editIm} onClick={togglePopup}/>
       {showPopup && (

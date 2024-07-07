@@ -13,21 +13,15 @@ function LeftSide() {
     const [CreatedList, setCreatedList] = useState([]);
     const { ListId } = useListId();
     const [selectedListName, setSelectedListName] = useState('');
-
-    console.log(CreatedList);
-
-
+    
     useEffect(() => {
         fetchUserAllTask()
-        //setSelectedListName(0);
     }, []);
 
 
     function handleDeleteList() {
         DeleteList();
-        
-        
-        }
+    }
 
     ////////////////////begin Add a new to do list////////////////////////////////
     const creatAnewToDoList = async (e) => {
@@ -46,7 +40,7 @@ function LeftSide() {
 
             await fetchUserAllTask();
         } catch (error) {
-            console.error('API Error', error.response);
+            alert(error.response.data.message);
             if (error.response && error.response.status === 422) {
                 console.log(error.response.data.errors);
             } else {
@@ -55,10 +49,9 @@ function LeftSide() {
         }
     };
     /////////////////////End Add a new to do list///////////////////////////////////
-    
+
 
     /////////////////////begin display all tasks in the to do list /////////////////
-    //get method
     const fetchUserAllTask = async (e) => {
         try {
             const token = localStorage.getItem('authToken');
@@ -73,8 +66,6 @@ function LeftSide() {
             } else {
                 const list = [reapons.data.data];
                 setCreatedList(list);
-                console.log("hhhhhhhhhhh",reapons.data.data.tasks[0].name)
-               // setSelectedListName(reapons.data.data.tasks[0].name)
             }
         } catch (error) {
             console.log(error);
@@ -135,16 +126,20 @@ function LeftSide() {
             </div>
             <div style={styles.selectedListNameContainer}>
                 {selectedListName === 0 || selectedListName === null ? (
-                    <p style={styles.selectedListName}>Please Select a list</p>) : (
                     <div>
                         <img src={deleteImg} style={styles.deleteIm} onClick={handleDeleteList} />
-                        <p style={styles.selectedListName}>The Selected list: 
-                        <p style={styles.selectedListName2}>{selectedListName}
-                        </p>
+                        <p style={styles.selectedListName}>Please Select a list</p>
+                    </div>
+                ) : (
+                    <div>
+                        <img src={deleteImg} style={styles.deleteIm} onClick={handleDeleteList} />
+                        <p style={styles.selectedListName}>The Selected list:
+                            <p style={styles.selectedListName2}>{selectedListName}
+                            </p>
                         </p>
                     </div>
                 )
-                
+
                 }
             </div>
         </div>
@@ -201,17 +196,18 @@ const styles = {
     },
     NewList: {
         position: "relative",
-        fontSize: "30px",
+        fontSize: "25px",
         fontFamily: "interSemiBold",
         maxWidth: "500px",
-        maxHeight: "500px",
-        left: "15px",
-        top: "50px",
+        maxHeight: "300px",
+        left: "17px",
+        top: "180px",
         borderRadius: "2px",
-        overflowX: "visible",
+        overflowX: "auto",
+
     },
     ListsName: {
-        width: "360px",
+        width: "285px",
     },
     deleteIm: {
         position: 'absolute',
@@ -224,25 +220,23 @@ const styles = {
     selectedListNameContainer: {
         position: 'absolute',
         left: '390px',
-        width: '79%',
+        width: '40%',
         backgroundColor: '#fff',
         borderRadius: '4px',
-        
-       
-       
+
     },
     selectedListName: {
         fontSize: '28px',
         fontWeight: 'bold',
         color: '#333',
     },
-    selectedListName2:{
+    selectedListName2: {
         fontSize: '28px',
         fontWeight: 'bold',
-        color:"#746FAF",
-        left:"230px",
-        bottom:"0px",
-        position:"absolute"
+        color: "#746FAF",
+        left: "230px",
+        bottom: "0px",
+        position: "absolute",
     }
 
 }

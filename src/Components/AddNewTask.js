@@ -75,7 +75,9 @@ function AddNewTask() {
                 {tasks.map(item => (<div key={item.id}>
                     <ToDoCard item={item} />
                 </div>
+
                 ))}
+
             </div>
         </div>
     );
