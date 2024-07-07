@@ -36,8 +36,6 @@ function LeftSide() {
             const formData = new FormData();
             formData.append('name', createToDoLists);
             const response = await axios.post('https://todo.midend.tech/api/todolists', formData, config);
-            console.log("data is sent", CreatedList);
-
             await fetchUserAllTask();
         } catch (error) {
             alert(error.response.data.message);

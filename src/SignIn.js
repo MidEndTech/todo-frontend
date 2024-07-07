@@ -28,10 +28,11 @@ function SignIn() {
             console.log("sent");
             navigate('./AllTasksPage');
         } catch (error) {
+            alert(error.response.data.message);
             if (error.response && error.response.status === 422) {
                 console.log(error.response.data.errors);
             } else {
-                console.log(error.response.data.message);
+                alert(error.response.data.message);
             }
         }
     };

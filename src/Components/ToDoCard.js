@@ -93,11 +93,13 @@ function ToDoCard({ item }) {
         }
         const response = await axios.delete(`https://todo.midend.tech/api/todolists/${ListId}/tasks/${item.id}`, config);
         console.log("i am delet");
+        window.location.reload();
+        // alert(error.response.data.message);
     } catch (error) {
         if (error.response && error.response.status === 422) {
             console.log(error.response.data.errors);
         } else {
-            console.log(error.response.data.message);
+            alert(error.response.data.message);
         }
     }
 };

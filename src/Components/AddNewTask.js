@@ -34,11 +34,13 @@ function AddNewTask() {
             formData.append('description', AddDes);
             const response = await axios.post(`https://todo.midend.tech/api/todolists/${ListId}/tasks`, formData, config);
             fetchUserAllTask();
+           
         } catch (error) {
+            alert(error.response.data.message);
             if (error.response && error.response.status === 422) {
                 console.log(error.response.data.errors);
             } else {
-                console.log(error.response.data.message);
+                alert(error.response.data.message);
             }
         }
     };
@@ -58,6 +60,7 @@ function AddNewTask() {
             console.log(reapons.data);
         } catch (error) {
             console.log(error.message);
+            alert("create a list first ");
         }
     }
     ////////////////////End show the Added Task GET////////////////////////////
