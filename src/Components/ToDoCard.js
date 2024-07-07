@@ -4,6 +4,7 @@ import { useListId } from "../Context/ListIdContext";
 import starfilled from "./../image/starFilled.png";
 import star from "./../image/star.png";
 import deleteImg from "./../image/delete.png";
+import editImg from "./../image/pencil.png";
 
 
 
@@ -13,6 +14,9 @@ function ToDoCard({ item }) {
   const { ListId } = useListId();
   const [title, setTitle] = useState(item.title);
   const [description, setDescription] = useState(item.description);
+  const [showPopup, setShowPopup] = useState(false);
+  const [oldTitle, setoldTitle] = useState(item.title);
+  const [oldDescription, setoldDescription] = useState(item.description);
 
 
   useEffect(() => {
@@ -33,6 +37,21 @@ function ToDoCard({ item }) {
     const newChecked = !isChecked;
     setIsImportant(newChecked);
     await updateTask({ important: newChecked });
+  };
+
+  const handleCard = async ()=>{
+    const newTitle = title;
+    const newDes = description
+    setTitle(newTitle);
+    setDescription(newDes);
+    await updateTask({title: newTitle, description: newDes})
+    setShowPopup(!showPopup);
+  };
+
+  const togglePopup = () => {
+    setShowPopup(!showPopup);
+    setTitle(oldTitle);
+    setDescription(oldDescription);
   };
 
   const updateTask = async (updates) => {
@@ -130,6 +149,66 @@ function ToDoCard({ item }) {
       left:"710px",
       cursor: "pointer"
     },
+    editIm:{
+      position: 'absolute',
+      marginTop: '24px',
+      height: '25px',
+      width: '25px',
+      left:"750px",
+      cursor: "pointer"
+    },
+    popWindow:{
+         position: 'fixed',
+          top: "100px",
+          left: "450px",
+          height:"120px",
+          backgroundColor: '#FAFAFA',
+          padding: '20px',
+          borderRadius: '6px',
+          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+          zIndex: '999',
+    },
+    TaskTitleTextfeild: {
+      border: '1px solid',
+      borderRadius: "6px",
+      borderColor: '#B4B3B3',
+      height: "40px",
+      width: "260px",
+      borderRadios: "10px",
+  },
+  TaskdescriptionTextfeild: {
+      border: '1px solid',
+      marginLeft:"15px",
+      borderRadius: "6px",
+      borderColor: '#B4B3B3',
+      height: "40px",
+      width: "260px",
+      borderRadios: "10px",
+  },
+  updateButton:{
+    position: "absolute",
+    borderRadius: "9px",
+    top: "100px",
+    left: "190px",
+    height: "45px",
+    width: "95px",
+    backgroundColor: "#746FAF",
+    color: "white",
+    border: "none",
+    fontSize: "18px",
+  },
+  closeButton:{
+    position: "absolute",
+    borderRadius: "9px",
+    top: "100px",
+    left: "300px",
+    height: "45px",
+    width: "95px",
+    backgroundColor: "#746FAF",
+    color: "white",
+    border: "none",
+    fontSize: "18px",
+  }
   };
 
   return (
@@ -141,8 +220,17 @@ function ToDoCard({ item }) {
       <p style={styles.descriptionTask}>{description}</p>
       <img style={styles.star} src={isImportant ? starfilled : star} onClick={handlestar} />
       <img src={deleteImg} style={styles.deleteIm} onClick={DeleteTask}/>
-    </div>
-  );
+      <img src={editImg} style={styles.editIm} onClick={togglePopup}/>
+      {showPopup && (
+      <div style={styles.popWindow}>
+        <input type="text" style={styles.TaskTitleTextfeild} value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Enter your Task Title" maxLength="20"/>
+        <input type="text" style={styles.TaskdescriptionTextfeild} value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Enter your Task description" maxLength="25"/>
+        <button onClick={handleCard} style={styles.updateButton}> Update </button>
+        <button onClick={togglePopup} style={styles.closeButton}> Cancel </button>
+      </div>
+    )}
+  </div>
+);
 }
 
 export default ToDoCard;
